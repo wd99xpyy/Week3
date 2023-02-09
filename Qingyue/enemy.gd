@@ -8,8 +8,7 @@ signal PlayerAttack
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -18,7 +17,17 @@ func _ready():
 
 func _on_enemy_body_entered(body):
 	if body.name == "Player":
-		$AnimatedSprite.play()
-		$AnimationPlayer.play("dead")
 		emit_signal("PlayerAttack")
 	
+
+
+func _on_enemy_area_entered(area):
+	if area.name == "bullet":
+		$AnimatedSprite.play()
+		$AnimationPlayer.play("dead")
+	if area.name == "attack":
+		$AnimatedSprite.play()
+		$AnimationPlayer.play("dead")
+	if area.name == "bomb":
+		$AnimatedSprite.play()
+		$AnimationPlayer.play("dead")

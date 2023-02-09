@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Qingyue/pixel_pack/spike.png" type="Texture" id=1]
+[ext_resource path="res://Qingyue/bullet.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "bullet"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 180.0, 180.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "bulletLeft"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -90.0, -90.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "bulletRight"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 90.0, 90.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "bulletUp"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 31.25, 46.875 )
+
+[node name="bullet" type="Sprite"]
+rotation = -1.5708
+scale = Vector2( 0.16, 0.16 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/bullet = SubResource( 1 )
+anims/bulletLeft = SubResource( 2 )
+anims/bulletRight = SubResource( 3 )
+anims/bulletUp = SubResource( 4 )
+
+[node name="bullet" type="Area2D" parent="."]
+collision_layer = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bullet"]
+position = Vector2( 2.49351e-06, 3.125 )
+shape = SubResource( 5 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="area_entered" from="bullet" to="." method="_on_bullet_area_entered"]
